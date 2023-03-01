@@ -1,4 +1,4 @@
-// This Schema fetches data from a static data source. 
+// This Schema fetches data from a static data source.
 
 const { authors, books } = require("../sampleData");
 
@@ -80,5 +80,4 @@ function authorResolver(parent, args) {
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
-
 });
