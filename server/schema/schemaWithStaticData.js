@@ -1,4 +1,6 @@
-const { authors, books } = require("./../sampleData");
+// This Schema fetches data from a static data source. 
+
+const { authors, books } = require("../sampleData");
 
 const {
   GraphQLObjectType,
