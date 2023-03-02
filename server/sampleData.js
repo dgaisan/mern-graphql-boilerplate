@@ -55,7 +55,7 @@ const authors = [
     id: "3",
     name: "Miguel de Cervantes",
     born: "1547",
-    email: "thor@gmail.com",
+    email: "miguel@gmail.com",
     phone: "123-456-7890",
   },
   {
