@@ -5,22 +5,23 @@ import { DELETE_BOOK } from "../mutations/books";
 import { GET_BOOKS } from "../queries/books";
 
 export default function BooksRow({ bookRecord, index }) {
-    const [deleteBook] = useMutation(DELETE_BOOK, {
-        variables: {id: bookRecord.id},
-        refetchQueries: [{ query: GET_BOOKS }]
-    });
+  const [deleteBook] = useMutation(DELETE_BOOK, {
+    variables: { id: bookRecord.id },
+    refetchQueries: [{ query: GET_BOOKS }],
+  });
 
   return (
     <tr>
-      <td scope="row">{index + 1}</td>
+      <td>{index + 1}</td>
       <td>{bookRecord.name}</td>
       <td>{bookRecord.yearPublished}</td>
       <td>{bookRecord.description}</td>
-      <td>{bookRecord.author.name}</td>
+      <td>{bookRecord.author ? bookRecord.author.name : ""}</td>
       <td>
-        <button className="btn btn-outline-danger btn-sm" onClick={deleteBook}><FaTrash /></button>
+        <button className="btn btn-outline-danger btn-sm" onClick={deleteBook}>
+          <FaTrash />
+        </button>
       </td>
-      
     </tr>
   );
 }

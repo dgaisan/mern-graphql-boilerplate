@@ -112,7 +112,7 @@ const mutation = new GraphQLObjectType({
         name: { type: GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLNonNull(GraphQLString) },
         yearPublished: { type: GraphQLNonNull(GraphQLString) },
-        authorId: { type: GraphQLNonNull(GraphQLID) },
+        authorId: { type: GraphQLID },
       },
       resolve(parent, args) {
         const book = new BookModel({

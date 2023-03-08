@@ -14,16 +14,3 @@ export const GET_BOOKS = gql`
   }
 `;
 
-export const GET_Authors = gql`
-  query GetAuthors {
-    books {
-      id
-      name
-      born
-      books {
-        id
-        name
-      }
-    }
-  }
-`;
