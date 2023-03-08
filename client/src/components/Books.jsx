@@ -1,20 +1,9 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import BooksRow from "./BooksRow";
+import { Spinner } from "./Spinner";
+import { GET_BOOKS } from "../queries/books";
 
-const GET_BOOKS = gql`
-  query {
-    books {
-      id
-      name
-      yearPublished
-      description
-      author {
-        name
-      }
-    }
-  }
-`;
 
 export default function Books() {
   const { loading, error, data } = useQuery(GET_BOOKS);
@@ -23,7 +12,7 @@ export default function Books() {
     return <>Error!</>;
   }
   if (loading) {
-    return <>Books Data Loading... </>;
+    return <Spinner />;
   }
 
   console.log(data);
@@ -40,7 +29,9 @@ export default function Books() {
         </tr>
       </thead>
       <tbody>
-        {data.books.map((record, index) => <BooksRow key={record.id} index={index} bookRecord={record} />)}
+        {data.books.map((record, index) => (
+          <BooksRow key={record.id} index={index} bookRecord={record} />
+        ))}
       </tbody>
     </table>
   );
