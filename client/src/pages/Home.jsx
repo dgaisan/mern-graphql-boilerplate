@@ -7,12 +7,12 @@ import Books from "../components/Books";
 export default function Home() {
   return (
     <>
+      <hr />
+      <AddAuthorModal />
+      <hr />
       <Authors />
       <hr />
-      <div className="d-flex justify-content-center m-4">
-        <AddBookModal />
-        <AddAuthorModal />
-      </div>
+      <AddBookModal />
       <hr />
       <Books />
     </>

@@ -22,6 +22,8 @@ export default function Author() {
       <div className="card-body">
         <h5 className="card-title">{data.author.name}</h5>
         <p className="card-text">{`${data.author.name} was born is ${data.author.born}`}</p>
+        {data.author.phone && (<p className="card-text">Phone: {data.author.phone}</p>)}
+        {data.author.email && (<p className="card-text">Email: {data.author.email}</p>)}
       </div>
       {data.author.books && (
         <ul className="list-group list-group-flush">

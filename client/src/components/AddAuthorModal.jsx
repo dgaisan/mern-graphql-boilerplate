@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { FaBookOpen } from "react-icons/fa";
+import { FaAddressBook } from "react-icons/fa";
 import { ADD_AUTHOR } from "../mutations/authors";
 import { GET_AUTHORS } from "../queries/authors";
 
@@ -29,7 +29,7 @@ export default function AddAuthorModal() {
         data-bs-target="#addAuthorModal"
       >
         <div className="d-flex align-items-center justify-content-between">
-          <FaBookOpen className="icon" />
+          <FaAddressBook className="icon" />
           <div className="ms-2">Add New Author</div>
         </div>
       </button>

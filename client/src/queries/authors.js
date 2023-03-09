@@ -15,7 +15,9 @@ export const GET_AUTHOR = gql`
     author(id: $id) {
       id
       name
-      born,
+      born
+      email
+      phone
       books {
         id,
         name
