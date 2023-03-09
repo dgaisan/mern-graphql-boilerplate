@@ -31,7 +31,7 @@ export default function Author() {
         </ul>
       )}
       <div className="card-body">
-        <Link to={"/"} className="btn, btn-secondary">
+        <Link to={"/"} className="btn btn-secondary">
           Go Back
         </Link>
       </div>

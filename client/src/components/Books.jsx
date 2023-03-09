@@ -14,8 +14,6 @@ export default function Books() {
     return <Spinner />;
   }
 
-  console.log(data);
-
   return (
     <>
       <table className="table table-striped mt-8">
