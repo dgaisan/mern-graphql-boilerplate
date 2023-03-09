@@ -1,10 +1,10 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Header from "./components/Header";
-import Books from "./components/Books";
-import AddBookModal from "./components/AddBookModal";
-import Authors from "./components/Authors";
-
+import Home from "./pages/Home";
+import PageNotfound from "./pages/404";
+import Author from "./pages/Author";
 
 const client = new ApolloClient({
   uri: "http://localhost:3003/api",
@@ -15,13 +15,16 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
-        <div className="container">
-          <h3>Client App</h3>
-          <Authors />
-          <AddBookModal />
-          <Books />
-        </div>
+        <BrowserRouter>
+          <Header />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/author/:authorId" element={<Author/>} />
+              <Route path="*" element={<PageNotfound />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
       </ApolloProvider>
     </>
   );
