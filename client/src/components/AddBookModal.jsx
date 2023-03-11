@@ -1,18 +1,34 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { FaBookOpen } from "react-icons/fa";
 import { ADD_BOOK } from "../mutations/books";
 import { GET_BOOKS } from "../queries/books";
+import { GET_AUTHORS } from "../queries/authors";
 
-export default function AddBookModal() {
+export default function AddBookModal({ authors = [] }) {
   const [bookName, setBookName] = useState("");
   const [bookYear, setBookYear] = useState("");
   const [bookDescription, setBookDescription] = useState("");
-  
+  const [author, setAuthor] = useState("");
+
   const [saveBook] = useMutation(ADD_BOOK, {
-    variables: {name: bookName, description: bookDescription, yearPublished: bookYear},
-    refetchQueries: [{query: GET_BOOKS}]
+    variables: {
+      name: bookName,
+      description: bookDescription,
+      yearPublished: bookYear,
+      authorId: author
+    },
+    refetchQueries: [{ query: GET_BOOKS }],
   });
+
+  const { data } = useQuery(GET_AUTHORS);
+
+  const cleanState = () => {
+    setBookName("");
+    setBookYear("");
+    setBookDescription("");
+    setAuthor("");
+  };
 
   return (
     <>
@@ -23,7 +39,7 @@ export default function AddBookModal() {
         data-bs-target="#addBookModal"
       >
         <div className="d-flex align-items-center justify-content-between">
-          <FaBookOpen className="icon"/>
+          <FaBookOpen className="icon" />
           <div className="ms-2">Add New Book</div>
         </div>
       </button>
@@ -81,6 +97,25 @@ export default function AddBookModal() {
                     value={bookDescription}
                   />
                 </div>
+
+                <label forhtml="authorSelector" className="form-label">
+                  Author
+                </label>
+                <select
+                  id="authorSelector"
+                  value={author}
+                  className="form-select"
+                  onChange={(e) => setAuthor(e.target.value)}
+                >
+                  <option>Select Author from the list</option>
+                  {data &&
+                    data.authors &&
+                    data.authors.map((record) => (
+                      <option key={record.id} value={record.id}>
+                        {record.name}
+                      </option>
+                    ))}
+                </select>
               </form>
             </div>
             <div className="modal-footer">
@@ -95,7 +130,10 @@ export default function AddBookModal() {
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
-                onClick={() => { saveBook(); }}
+                onClick={() => {
+                  saveBook();
+                  cleanState();
+                }}
               >
                 Save changes
               </button>

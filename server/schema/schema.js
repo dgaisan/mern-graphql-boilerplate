@@ -115,6 +115,7 @@ const mutation = new GraphQLObjectType({
         authorId: { type: GraphQLID },
       },
       resolve(parent, args) {
+        console.log('Trying to add a new Book', args)
         const book = new BookModel({
           name: args.name,
           description: args.description,
