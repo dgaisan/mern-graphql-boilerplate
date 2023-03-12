@@ -4,6 +4,7 @@ import { FaBookOpen } from "react-icons/fa";
 import { ADD_BOOK } from "../mutations/books";
 import { GET_BOOKS } from "../queries/books";
 import { GET_AUTHORS } from "../queries/authors";
+import { Spinner } from "./Spinner";
 
 export default function AddBookModal({ authors = [] }) {
   const [bookName, setBookName] = useState("");
@@ -18,10 +19,10 @@ export default function AddBookModal({ authors = [] }) {
       yearPublished: bookYear,
       authorId: author
     },
-    refetchQueries: [{ query: GET_BOOKS }],
+    refetchQueries: [{ query: GET_BOOKS }, { query: GET_AUTHORS }],
   });
 
-  const { data } = useQuery(GET_AUTHORS);
+  const { data, loading } = useQuery(GET_AUTHORS);
 
   const cleanState = () => {
     setBookName("");
@@ -29,6 +30,8 @@ export default function AddBookModal({ authors = [] }) {
     setBookDescription("");
     setAuthor("");
   };
+
+  if (loading) { return <Spinner /> }
 
   return (
     <>

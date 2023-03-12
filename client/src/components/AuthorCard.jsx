@@ -5,6 +5,7 @@ import { DELETE_AUTHOR } from "../mutations/authors";
 import { GET_AUTHORS } from "../queries/authors";
 
 export default function AuthorCard({ author }) {
+    console.log('AuthorCard', author);
   const navigate = useNavigate();
   const [deleteAuthor] = useMutation(DELETE_AUTHOR, {
     variables: { id: author.id },
@@ -16,7 +17,7 @@ export default function AuthorCard({ author }) {
       key={author.id}
       className="card m-1"
       style={{ width: "18rem", cursor: "pointer" }}
-      onClick={() => navigate(`/author/${author.id}`)}
+      onClick={(e) => { navigate(`/author/${author.id}`); }}
     >
       <div className="card-body">
         <h5 className="card-title">{author.name}</h5>
@@ -29,7 +30,7 @@ export default function AuthorCard({ author }) {
             deleteAuthor();
           }}
         >
-          Delete Author
+          Delete
         </div>
       </div>
     </div>

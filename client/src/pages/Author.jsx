@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import EditAuthorModal from "../components/EditAuthorModal";
 import { Spinner } from "../components/Spinner";
 import { GET_AUTHOR } from "../queries/authors";
 
@@ -36,6 +37,7 @@ export default function Author() {
         <Link to={"/"} className="btn btn-secondary">
           Go Back
         </Link>
+        <EditAuthorModal author={data.author} />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ export const GET_AUTHORS = gql`
       id
       name
       born
+      email
+      phone
     }
   }
 `;

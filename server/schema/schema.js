@@ -21,7 +21,7 @@ const AuthorType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve(parent) {
-        return BookModel.find({authorId: parent.id});
+        return BookModel.find({ authorId: parent.id });
       },
     },
   }),
@@ -106,6 +106,24 @@ const mutation = new GraphQLObjectType({
         return AuthorModel.findByIdAndRemove(args.id);
       },
     },
+    editAuthor: {
+      type: AuthorType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        born: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        const { id, name, born, email, phone } = args;
+        return AuthorModel.findOneAndUpdate(id, {
+          $set: {
+            name, born, email, phone
+          },
+        });
+      },
+    },
     addBook: {
       type: BookType,
       args: {
@@ -115,7 +133,7 @@ const mutation = new GraphQLObjectType({
         authorId: { type: GraphQLID },
       },
       resolve(parent, args) {
-        console.log('Trying to add a new Book', args)
+        console.log("Trying to add a new Book", args);
         const book = new BookModel({
           name: args.name,
           description: args.description,
@@ -143,15 +161,19 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, args) {
         const { id, name, description } = args;
-        return BookModel.findByIdAndUpdate(id, {
-          $set: {
-            name,
-            description
+        return BookModel.findByIdAndUpdate(
+          id,
+          {
+            $set: {
+              name,
+              description,
+            },
           },
-        }, {
-          new: true
-        });
-      }
+          {
+            new: true,
+          }
+        );
+      },
     },
   },
 });

@@ -7,6 +7,8 @@ import AuthorCard from "./AuthorCard";
 export default function Authors() {
   const { loading, error, data } = useQuery(GET_AUTHORS);
 
+  console.log(data);
+
   if (error) {
     return <div>Error Loading Authors...</div>;
   }
