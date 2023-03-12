@@ -3,13 +3,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DELETE_AUTHOR } from "../mutations/authors";
 import { GET_AUTHORS } from "../queries/authors";
+import { GET_BOOKS } from "../queries/books";
 
 export default function AuthorCard({ author }) {
-    console.log('AuthorCard', author);
   const navigate = useNavigate();
   const [deleteAuthor] = useMutation(DELETE_AUTHOR, {
     variables: { id: author.id },
-    refetchQueries: [{ query: GET_AUTHORS }],
+    refetchQueries: [{ query: GET_AUTHORS }, { query: GET_BOOKS }],
   });
 
   return (
@@ -17,7 +17,9 @@ export default function AuthorCard({ author }) {
       key={author.id}
       className="card m-1"
       style={{ width: "18rem", cursor: "pointer" }}
-      onClick={(e) => { navigate(`/author/${author.id}`); }}
+      onClick={(e) => {
+        navigate(`/author/${author.id}`);
+      }}
     >
       <div className="card-body">
         <h5 className="card-title">{author.name}</h5>

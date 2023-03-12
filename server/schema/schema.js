@@ -102,7 +102,8 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
+      resolve: async (parent, args) => {
+        await BookModel.deleteMany({ authorId: args.id });
         return AuthorModel.findByIdAndRemove(args.id);
       },
     },
@@ -133,7 +134,6 @@ const mutation = new GraphQLObjectType({
         authorId: { type: GraphQLID },
       },
       resolve(parent, args) {
-        console.log("Trying to add a new Book", args);
         const book = new BookModel({
           name: args.name,
           description: args.description,
